@@ -8,7 +8,7 @@ import {RouterView} from 'vue-router'
   </div>
 </template>
 
-<style>
+<style scoped>
 body, html, #app {
   height: 100%;
   margin: 0;

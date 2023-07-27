@@ -38,7 +38,7 @@ const items = [
   </div>
 </template>
 
-<style>
+<style scoped>
 #content {
   display: flex;
   flex-wrap: wrap;
