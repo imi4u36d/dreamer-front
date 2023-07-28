@@ -1,3 +1,4 @@
+
 <template>
   <div class="detailView">
     <div class="header">
@@ -60,7 +61,6 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {

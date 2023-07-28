@@ -3,6 +3,7 @@ import _service from "@/service";
 import {useUserStore} from "@/stores/userStore";
 import {ref} from "vue";
 import router from "@/router";
+import { showNotify } from 'vant';
 
 const title = 'Login';
 const buttonLabel = 'Login';
@@ -17,6 +18,7 @@ function submitForm() {
   }
 
   _service.login(params).then(res => {
+    console.log(res)
     if (res.code === "200") {
       // 登陆成功，缓存用户信息
       useUserStore().setUserInfo({
@@ -24,8 +26,11 @@ function submitForm() {
         username: res.data.username,
         token: res.data.token
       })
+      showNotify({ type: 'success', message: '登陆成功!' });
       // 跳转到首页
       router.push({path: '/'})
+    }else {
+      showNotify({ type: 'warning', message: '登录失败!' });
     }
   })
 }

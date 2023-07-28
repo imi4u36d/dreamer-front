@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 
-import ContentComponent from "@/components/ContentComponent.vue";
 import {ref} from "vue";
+import router from "@/router";
 
-const activeTab = ref(1);
+let activeTab = ref(1);
 const tabs = [
-  {id: 1, title: '首页', icon: 'fas fa-home'},
+  {id: 1, title: '首页', icon: 'fas fa-home', path: '/'},
   {id: 2, title: '造型', icon: 'fas fa-compass'},
   {id: 3, title: '消息', icon: 'fas fa-bell'},
-  {id: 4, title: '我的', icon: 'fas fa-user'}
+  {id: 4, title: '我的', icon: 'fas fa-user', path: '/me'}
 ]
 
 const activeNav = ref(1);
@@ -16,6 +16,13 @@ const navs = [
   {id: 1, title: '关注', icon: 'fas fa-home'},
   {id: 2, title: '发现', icon: 'fas fa-compass'},
 ]
+
+const clickTab = (tab: any) => {
+  // 设置活动的tab
+  activeTab = tab.id
+  // 跳转页面
+  router.push({path: tab.path})
+}
 </script>
 
 <template>
@@ -28,11 +35,11 @@ const navs = [
       </div>
     </div>
     <div class="content">
-      <ContentComponent></ContentComponent>
+      <RouterView></RouterView>
     </div>
     <div class="footer">
       <div class="tab" v-for="tab in tabs" :key="tab.id" :class="{ active: activeTab === tab.id }"
-           @click="activeTab = tab.id">
+           @click="clickTab(tab)">
         <i :class="tab.icon"></i>
         <span>{{ tab.title }}</span>
       </div>

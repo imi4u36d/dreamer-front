@@ -24,6 +24,13 @@ let _service = {
     login(params: any) {
         const url = baseURL + 'api/login';
         return service.get(url, params, null);
+    },
+    upload(data) {
+        const url = baseURL + '/api/file/upload';
+        const headers = {
+            'Content-Type': 'multipart/form-data'
+        };
+        return service.post(url, data, headers);
     }
 }
 
