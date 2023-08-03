@@ -6,7 +6,7 @@ let baseURL: any;
 
 //配置开发环境
 if (process.env.NODE_ENV === 'development') {
-    baseURL = 'http://localhost:6060';
+    baseURL = 'http://10.100.119.64:6060';
 }
 
 // 配置生产环境
@@ -16,7 +16,6 @@ if (process.env.NODE_ENV === 'production') {
 
 //设置请求头（如果请求头统一的话可以在axios文件设置，则无须从这里传过去）
 const header = {
-    token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTY4MTU3MzY3NjQwNzMyMDU3NiwidXNlcm5hbWUiOiJ3eiIsImV4cCI6MTY5MTA1MzU5NH0.qdx36I66xRAbIIzQiFoVEOQ1CWjLYYhFE00UcUQ5lvg'
 }
 
 //根据自身需求
@@ -36,10 +35,15 @@ let _service = {
     },
     // 获取笔记分页列表
     notePage: (params: any) => {
+        console.log('header', header)
         const url = baseURL + '/api/note/notePage';
         return service.get(url, params, header);
-    }
+    },
 
+    signup: (params: { pwd: string; username: string }) => {
+        const url = baseURL + '/api/user/signup';
+        return service.get(url, params, header);
+    }
 }
 
 

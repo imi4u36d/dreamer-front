@@ -3,22 +3,22 @@ import _service from "@/service";
 import {useUserStore} from "@/stores/userStore";
 import {ref} from "vue";
 import router from "@/router";
-import {showNotify} from 'vant';
-import { sha256 } from 'js-sha256'
+import { showNotify } from 'vant';
 
-const title = 'Login';
-const buttonLabel = 'Login';
+const title = 'Sign';
+const buttonLabel = 'Sign';
 const email = ref('');
 const password = ref('');
 
-const submitForm = () => {
+function submitForm() {
 
   let params = {
     username: email.value,
-    pwd: sha256(password.value)
+    pwd: password.value
   }
 
-  _service.login(params).then(res => {
+  _service.signup(params).then(res => {
+    console.log(res)
     if (res.code === "200") {
       // 登陆成功，缓存用户信息
       useUserStore().setUserInfo({
@@ -26,11 +26,11 @@ const submitForm = () => {
         username: res.data.username,
         token: res.data.token
       })
-      showNotify({type: 'success', message: '登陆成功!'});
+      showNotify({ type: 'success', message: '注册成功!' });
       // 跳转到首页
       router.push({path: '/'})
-    } else {
-      showNotify({type: 'warning', message: '登录失败!'});
+    }else {
+      showNotify({ type: 'warning', message: '注册失败!' });
     }
   })
 }

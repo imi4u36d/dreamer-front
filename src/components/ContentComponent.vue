@@ -8,8 +8,8 @@ onMounted(() => {
   notePage();
 })
 
-let noteList = ref([])
 
+let noteList = ref([])
 const notePage = () => {
   _service.notePage({}).then(res => {
     if (res.code === "200") {
@@ -25,12 +25,12 @@ const notePage = () => {
       <div class="pic">
       </div>
       <div class="noteDetail">
-        <div class="title">note.noteTitle</div>
+        <div class="title">{{note.noteTitle}}</div>
 
         <div class="articleInfo">
           <div class="author">
             <div class="authorHeadImg"></div>
-            <span class="authorName">{{ note.userId }}</span>
+            <span class="authorName">{{ note.authorName }}</span>
           </div>
           <div class="like">
             <van-icon name="good-job-o"/>
@@ -51,7 +51,7 @@ const notePage = () => {
 
 .noteCard {
   width: 48%;
-  height: auto;
+  height: 350px;
   border-radius: 5px;
   background-color: white;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
@@ -68,6 +68,7 @@ const notePage = () => {
 }
 
 .noteDetail {
+  height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -75,10 +76,16 @@ const notePage = () => {
 }
 
 .noteDetail > .title {
+  height: 45px;
   font-size: 16px;
-  font-weight: bold;
   color: #333;
   margin: 10px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /*! autoprefixer: off */
+  -webkit-box-orient: vertical;
 }
 
 .author {

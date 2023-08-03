@@ -19,7 +19,7 @@ const activeTab = ref(0);
       <RouterView></RouterView>
     </div>
     <div class="footer">
-      <van-tabbar v-model="activeTab" active-color="green">
+      <van-tabbar v-model="activeTab" active-color="green" placeholder>
         <van-tabbar-item icon="home-o">首页</van-tabbar-item>
         <van-tabbar-item icon="search">搜索</van-tabbar-item>
         <van-tabbar-item icon="friends-o">发现</van-tabbar-item>
