@@ -1,53 +1,40 @@
 <script lang="ts" setup>
 
 import {ref} from "vue";
-import router from "@/router";
 
-let activeTab = ref(1);
-const tabs = [
-  {id: 1, title: '首页', icon: 'fas fa-home', path: '/'},
-  {id: 2, title: '造型', icon: 'fas fa-compass'},
-  {id: 3, title: '消息', icon: 'fas fa-bell'},
-  {id: 4, title: '我的', icon: 'fas fa-user', path: '/me'}
-]
+const activeNav = ref(0);
+const activeTab = ref(0);
 
-const activeNav = ref(1);
-const navs = [
-  {id: 1, title: '关注', icon: 'fas fa-home'},
-  {id: 2, title: '发现', icon: 'fas fa-compass'},
-]
-
-const clickTab = (tab: any) => {
-  // 设置活动的tab
-  activeTab = tab.id
-  // 跳转页面
-  router.push({path: tab.path})
-}
 </script>
 
 <template>
   <div class="homeView">
     <div class="header">
-      <div class="nav" v-for="nav in navs" :key="nav.id" :class="{ active: activeNav === nav.id }"
-           @click="activeNav = nav.id">
-        <i :class="nav.icon"></i>
-        <span>{{ nav.title }}</span>
-      </div>
+      <van-tabs v-model:active="activeNav" background="#fcfcfc" color="green">
+        <van-tab title="关注"></van-tab>
+        <van-tab title="发现"></van-tab>
+      </van-tabs>
     </div>
     <div class="content">
       <RouterView></RouterView>
     </div>
     <div class="footer">
-      <div class="tab" v-for="tab in tabs" :key="tab.id" :class="{ active: activeTab === tab.id }"
-           @click="clickTab(tab)">
-        <i :class="tab.icon"></i>
-        <span>{{ tab.title }}</span>
-      </div>
+      <van-tabbar v-model="activeTab" active-color="green">
+        <van-tabbar-item icon="home-o">首页</van-tabbar-item>
+        <van-tabbar-item icon="search">搜索</van-tabbar-item>
+        <van-tabbar-item icon="friends-o">发现</van-tabbar-item>
+        <van-tabbar-item icon="setting-o">设置</van-tabbar-item>
+      </van-tabbar>
     </div>
   </div>
 </template>
 
 <style scoped>
+.homeView {
+  width: 100%;
+  height: 100%;
+}
+
 .header {
   display: flex;
   justify-content: center;
@@ -57,46 +44,18 @@ const clickTab = (tab: any) => {
   top: 0;
   left: 0;
   right: 0;
-  border-bottom: 1px solid #f0f0f0;
-  background-color: white;
-}
-
-.nav {
-  padding: 10px;
-  font-size: 16px;
-}
-
-.nav.active {
-  color: #ff4d4f;
+  border-bottom: 1px solid rgba(254, 254, 254, 0.02);
+  background-color: #fcfcfc;
 }
 
 .content {
   flex: 1;
-  padding: 10px;
   margin-top: 50px;
+  height: 100%;
 }
 
-.footer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 50px;
-  background-color: #f0f0f0;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+.van-tabbar-item {
+  background-color: #fcfcfc;
 }
 
-.tab {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  color: #666;
-}
-
-.tab.active {
-  color: #ff4d4f;
-}
 </style>
