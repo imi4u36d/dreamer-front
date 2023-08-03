@@ -1,19 +1,36 @@
 <script lang="ts" setup>
 
+//获取笔记列表
+import _service from "@/service";
+import {onMounted, ref} from "vue";
+
+onMounted(() => {
+  notePage();
+})
+
+let noteList = ref([])
+
+const notePage = () => {
+  _service.notePage({}).then(res => {
+    if (res.code === "200") {
+      noteList.value = res.data.records
+    }
+  })
+}
 </script>
 
 <template>
   <div id="content">
-    <div class="noteCard">
+    <div class="noteCard" v-for="note in noteList" :key="note.id">
       <div class="pic">
       </div>
       <div class="noteDetail">
-        <div class="title">天啊！她是怎么瘦成这个样子的！</div>
+        <div class="title">note.noteTitle</div>
 
         <div class="articleInfo">
           <div class="author">
             <div class="authorHeadImg"></div>
-            <span class="authorName">小明</span>
+            <span class="authorName">{{ note.userId }}</span>
           </div>
           <div class="like">
             <van-icon name="good-job-o"/>
@@ -22,46 +39,6 @@
         </div>
       </div>
     </div>
-
-    <div class="noteCard">
-      <div class="pic">
-      </div>
-      <div class="noteDetail">
-        <div class="title">天啊！她是怎么瘦成这个样子的！</div>
-
-        <div class="articleInfo">
-          <div class="author">
-            <div class="authorHeadImg"></div>
-            <span class="authorName">小明</span>
-          </div>
-          <div class="like">
-            <van-icon name="good-job-o"/>
-            <span class="likeNum">888</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="noteCard">
-      <div class="pic">
-      </div>
-      <div class="noteDetail">
-        <div class="title">天啊！她是怎么瘦成这个样子的！</div>
-
-        <div class="articleInfo">
-          <div class="author">
-            <div class="authorHeadImg"></div>
-            <span class="authorName">小明</span>
-          </div>
-          <div class="like">
-            <van-icon name="good-job-o"/>
-            <span class="likeNum">888</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
   </div>
 </template>
 
