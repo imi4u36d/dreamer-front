@@ -48,6 +48,11 @@ let _service = {
     noteDetail: (params: any) => {
         const url = baseURL + '/api/note/getNoteById';
         return service.get(url, params, header);
+    },
+    // 获取笔记评论列表
+    getNoteCommentListByNoteId: (params: { noteId: string | null | LocationQueryValue[] }) => {
+        const url = baseURL + '/api/noteComment/getNoteCommentListByNoteId';
+        return service.get(url, params, header);
     }
 }
 

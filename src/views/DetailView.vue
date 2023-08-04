@@ -6,12 +6,22 @@ import _service from "@/service";
 const route = useRoute()
 onMounted(() => {
   // 获取笔记详情
-  const params = {
+  const noteParams = {
     noteId: route.query.id
   }
-  _service.noteDetail(params).then(res => {
+  _service.noteDetail(noteParams).then(res => {
     if (res.code === "200") {
       noteDetail.value = res.data
+    }
+  })
+
+  // 获取评论列表
+  const noteCommentParams = {
+    noteId: route.query.id
+  }
+  _service.getNoteCommentListByNoteId(noteCommentParams).then(res => {
+    if (res.code === "200") {
+      comments.value = res.data
     }
   })
 })
@@ -27,11 +37,7 @@ const images = ref([
   'https://picsum.photos/1050/400?random=2',
   'https://picsum.photos/1050/400?random=3'
 ])
-const comments = ref([
-  {id: 1, name: '张三', avatar: 'https://picsum.photos/35/35', text: '这篇文章写得很好！'},
-  {id: 2, name: '李四', avatar: 'https://picsum.photos/35/35', text: '我也觉得很好！'},
-  {id: 3, name: '李四', avatar: 'https://picsum.photos/35/35', text: '我也觉得很好！'}
-])
+const comments = ref([])
 
 const newComment = ref({
   name: '',
@@ -93,17 +99,17 @@ const onClickLeft = () => history.back();
 
     <van-divider/>
     <div class="tips">
-      共有10条评论
+      共有{{comments.length}}条评论
     </div>
 
     <div class="comments">
       <div class="comment" v-for="comment in comments" :key="comment.id">
         <div class="avatar">
-          <img :src="comment.avatar" alt="">
+          <img src="https://picsum.photos/35/35?random=1" alt="">
         </div>
         <div class="info">
-          <div class="name">{{ comment.name }}</div>
-          <div class="text">{{ comment.text }}</div>
+          <div class="name">{{ comment.userName }}</div>
+          <div class="text">{{ comment.comment }}</div>
         </div>
       </div>
     </div>
@@ -185,14 +191,14 @@ const onClickLeft = () => history.back();
   line-height: 1.5;
 }
 
-.labels{
+.labels {
   padding: 10px;
   width: 100%;
   display: flex;
   color: #0d7685;
 }
 
-.labels>span {
+.labels > span {
   margin-right: 15px;
 }
 
