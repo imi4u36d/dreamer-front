@@ -3,6 +3,7 @@
 //获取笔记列表
 import _service from "@/service";
 import {onMounted, ref} from "vue";
+import router from "@/router";
 
 onMounted(() => {
   notePage();
@@ -17,15 +18,20 @@ const notePage = () => {
     }
   })
 }
+
+const toDetail = (id:any) => {
+  console.log(id)
+  router.push({path: "/detailView", query: {id: id}})
+}
 </script>
 
 <template>
   <div id="content">
-    <div class="noteCard" v-for="note in noteList" :key="note.id">
+    <div class="noteCard" v-for="note in noteList" :key="note.id" @click="toDetail(note.id)">
       <div class="pic">
       </div>
       <div class="noteDetail">
-        <div class="title">{{note.noteTitle}}</div>
+        <div class="title">{{ note.noteTitle }}</div>
 
         <div class="articleInfo">
           <div class="author">
@@ -44,6 +50,7 @@ const notePage = () => {
 
 <style scoped>
 #content {
+  margin-top: 50px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

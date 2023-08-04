@@ -18,7 +18,6 @@ function submitForm() {
   }
 
   _service.signup(params).then(res => {
-    console.log(res)
     if (res.code === "200") {
       // 登陆成功，缓存用户信息
       useUserStore().setUserInfo({

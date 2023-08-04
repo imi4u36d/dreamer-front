@@ -18,14 +18,15 @@ const activeTab = ref(0);
     <div class="content">
       <RouterView></RouterView>
     </div>
-    <div class="footer">
-      <van-tabbar v-model="activeTab" active-color="green" placeholder>
-        <van-tabbar-item icon="home-o">首页</van-tabbar-item>
-        <van-tabbar-item icon="search">搜索</van-tabbar-item>
-        <van-tabbar-item icon="friends-o">发现</van-tabbar-item>
-        <van-tabbar-item icon="setting-o">设置</van-tabbar-item>
-      </van-tabbar>
-    </div>
+    <van-tabbar class="footer" v-model="activeTab" active-color="green">
+      <van-tabbar-item icon="home-o">首页</van-tabbar-item>
+      <van-tabbar-item icon="search">活动</van-tabbar-item>
+      <van-tabbar-item type="">
+        <van-icon name="add" size="32px" color="red" />
+      </van-tabbar-item>
+      <van-tabbar-item icon="friends-o">消息</van-tabbar-item>
+      <van-tabbar-item icon="setting-o">我</van-tabbar-item>
+    </van-tabbar>
   </div>
 </template>
 
@@ -48,14 +49,7 @@ const activeTab = ref(0);
   background-color: #fcfcfc;
 }
 
-.content {
-  flex: 1;
-  margin-top: 50px;
-  height: 100%;
-}
-
 .van-tabbar-item {
   background-color: #fcfcfc;
 }
-
 </style>
