@@ -50,8 +50,13 @@ let _service = {
         return service.get(url, params, header);
     },
     // 获取笔记评论列表
-    getNoteCommentListByNoteId: (params: { noteId: string | null | LocationQueryValue[] }) => {
+    getNoteCommentListByNoteId: (params: any) => {
         const url = baseURL + '/api/noteComment/getNoteCommentListByNoteId';
+        return service.get(url, params, header);
+    },
+    // 评论笔记
+    commitComment: (params: any) => {
+        const url = baseURL + '/api/noteComment/addNoteComment';
         return service.get(url, params, header);
     }
 }

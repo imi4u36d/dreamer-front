@@ -23,11 +23,12 @@ initAxios.interceptors.response.use((response) => {
     if (response.data.code === "401") {
         router.push("/login")
     }
-    if (response.data.code === "200") {
-        return response.data
-    } else {
-        return {resultCode: -1}
-    }
+    return response.data
+    // if (response.data.code === "200") {
+    //     return response.data
+    // } else {
+    //     return {resultCode: -1}
+    // }
 })
 //导出
 export default () => initAxios

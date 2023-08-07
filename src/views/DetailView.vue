@@ -2,6 +2,8 @@
 import {onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
 import _service from "@/service";
+import router from "@/router";
+import {showNotify} from "vant";
 
 const route = useRoute()
 onMounted(() => {
@@ -40,10 +42,50 @@ const images = ref([
 const comments = ref([])
 
 const newComment = ref({
-  name: '',
-  text: ''
+  noteId: route.query.id,
+  userId: '',
+  comment: ''
 })
 
+/**
+ * 提交评论
+ */
+const commitComment = () => {
+  // 获取用户信息
+  let userInfo: any = localStorage.getItem('userInfo');
+  userInfo = JSON.parse(userInfo)
+  // const username = useUserStore().userInfo.username
+  if (!userInfo) {
+    showNotify({type: 'warning', message: '请先登录!'});
+    router.push({path: "/login"})
+    return
+  }
+
+  // 开始提交评论
+  newComment.value.userId = userInfo.userId
+  _service.commitComment(newComment.value).then(res => {
+    if (res.code === "200") {
+      showNotify({type: 'success', message: '评论成功!'});
+      // 清空评论框
+      newComment.value.comment = ''
+      // 重新获取评论列表
+      const noteCommentParams = {
+        noteId: route.query.id
+      }
+      _service.getNoteCommentListByNoteId(noteCommentParams).then(res => {
+        if (res.code === "200") {
+          comments.value = res.data
+        }
+      })
+    } else {
+      showNotify({type: 'warning', message: '评论失败!'});
+    }
+  })
+}
+
+/**
+ * 返回上一页
+ */
 const onClickLeft = () => history.back();
 </script>
 
@@ -115,12 +157,12 @@ const onClickLeft = () => history.back();
     </div>
     <div class="edit">
       <van-field
-          v-model="newComment.text"
+          v-model="newComment.comment"
           left-icon="edit"
           placeholder="说两句儿"
       >
         <template #button>
-          <van-button size="small" color="green">发射</van-button>
+          <van-button size="small" color="green" @click="commitComment()">发射</van-button>
         </template>
       </van-field>
     </div>

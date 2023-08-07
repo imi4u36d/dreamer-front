@@ -3,10 +3,8 @@ import _service from "@/service";
 import {useUserStore} from "@/stores/userStore";
 import {ref} from "vue";
 import router from "@/router";
-import { showNotify } from 'vant';
+import {showNotify} from 'vant';
 
-const title = 'Sign';
-const buttonLabel = 'Sign';
 const email = ref('');
 const password = ref('');
 
@@ -19,17 +17,19 @@ function submitForm() {
 
   _service.signup(params).then(res => {
     if (res.code === "200") {
-      // 登陆成功，缓存用户信息
-      useUserStore().setUserInfo({
-        userId: res.data.userId,
-        username: res.data.username,
-        token: res.data.token
-      })
-      showNotify({ type: 'success', message: '注册成功!' });
+      localStorage.setItem('userInfo', JSON.stringify(res.data))
+      // // 登陆成功，缓存用户信息
+      // useUserStore().setUserInfo({
+      //   userId: res.data.userId,
+      //   username: res.data.username,
+      //   token: res.data.token
+      // })
+      showNotify({type: 'success', message: '注册成功!'});
       // 跳转到首页
       router.push({path: '/'})
-    }else {
-      showNotify({ type: 'warning', message: '注册失败!' });
+    } else {
+      console.log(res)
+      showNotify({type: 'warning', message: res.msg});
     }
   })
 }
@@ -37,17 +37,17 @@ function submitForm() {
 
 <template>
   <div class="container">
-    <h1>{{ title }}</h1>
+    <h1>注册</h1>
     <form>
       <div class="form-group">
-        <label for="email">Email</label>
+        <label for="email">用户名/邮箱</label>
         <input type="email" id="email" v-model="email" required>
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password">密码</label>
         <input type="password" id="password" v-model="password" required>
       </div>
-      <button type="submit" @click.prevent="submitForm">{{ buttonLabel }}</button>
+      <button type="submit" @click.prevent="submitForm">注册并登陆</button>
     </form>
   </div>
 </template>
@@ -77,7 +77,6 @@ form {
 }
 
 label {
-  font-weight: bold;
   margin-bottom: 0.5rem;
 }
 

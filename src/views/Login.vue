@@ -4,10 +4,9 @@ import {useUserStore} from "@/stores/userStore";
 import {ref} from "vue";
 import router from "@/router";
 import {showNotify} from 'vant';
-import { sha256 } from 'js-sha256'
+import {sha256} from 'js-sha256'
+import * as path from "path";
 
-const title = 'Login';
-const buttonLabel = 'Login';
 const email = ref('');
 const password = ref('');
 
@@ -20,12 +19,13 @@ const submitForm = () => {
 
   _service.login(params).then(res => {
     if (res.code === "200") {
+      localStorage.setItem('userInfo', JSON.stringify(res.data))
       // 登陆成功，缓存用户信息
-      useUserStore().setUserInfo({
-        userId: res.data.userId,
-        username: res.data.username,
-        token: res.data.token
-      })
+      // useUserStore().setUserInfo({
+      //   userId: res.data.userId,
+      //   username: res.data.username,
+      //   token: res.data.token
+      // })
       showNotify({type: 'success', message: '登陆成功!'});
       // 跳转到首页
       router.push({path: '/'})
@@ -34,21 +34,28 @@ const submitForm = () => {
     }
   })
 }
+
+const toSignup = () => {
+  router.push({path: '/signup'})
+}
 </script>
 
 <template>
   <div class="container">
-    <h1>{{ title }}</h1>
+    <h1>登陆</h1>
     <form>
       <div class="form-group">
-        <label for="email">Email</label>
+        <label for="email">用户名/邮箱</label>
         <input type="email" id="email" v-model="email" required>
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password">密码</label>
         <input type="password" id="password" v-model="password" required>
       </div>
-      <button type="submit" @click.prevent="submitForm">{{ buttonLabel }}</button>
+      <div class="actionButton">
+        <button type="submit" @click.prevent="submitForm">登陆</button>
+        <a type="submit" @click.prevent="toSignup">立即注册</a>
+      </div>
     </form>
   </div>
 </template>
@@ -78,7 +85,6 @@ form {
 }
 
 label {
-  font-weight: bold;
   margin-bottom: 0.5rem;
 }
 
@@ -97,6 +103,20 @@ button {
   border: none;
   background-color: #007aff;
   color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.actionButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+.actionButton > a {
+  color: #007aff;
   font-size: 1rem;
   cursor: pointer;
 }
