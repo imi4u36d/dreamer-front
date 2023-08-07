@@ -19,7 +19,7 @@ const notePage = () => {
   })
 }
 
-const toDetail = (id:any) => {
+const toDetail = (id: any) => {
   console.log(id)
   router.push({path: "/detailView", query: {id: id}})
 }
@@ -63,7 +63,7 @@ const toDetail = (id:any) => {
   background-color: white;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
   margin: 1%;
-  padding: 5px 0;
+  padding-bottom: 5px;
 }
 
 .pic {

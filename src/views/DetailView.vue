@@ -99,7 +99,7 @@ const onClickLeft = () => history.back();
 
     <van-divider/>
     <div class="tips">
-      共有{{comments.length}}条评论
+      共有{{ comments.length }}条评论
     </div>
 
     <div class="comments">
