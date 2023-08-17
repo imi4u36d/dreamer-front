@@ -7,6 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    CommonFooter: typeof import('./src/components/CommonFooter.vue')['default']
+    CommonHeader: typeof import('./src/components/CommonHeader.vue')['default']
     ContentComponent: typeof import('./src/components/ContentComponent.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
@@ -18,6 +20,7 @@ declare module 'vue' {
     VanField: typeof import('vant/es')['Field']
     VanForm: typeof import('vant/es')['Form']
     VanIcon: typeof import('vant/es')['Icon']
+    VanImage: typeof import('vant/es')['Image']
     VanList: typeof import('vant/es')['List']
     VanNavBar: typeof import('vant/es')['NavBar']
     VanRadio: typeof import('vant/es')['Radio']

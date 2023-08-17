@@ -1,151 +1,168 @@
+<script lang="ts" setup>
+import ContentComponent from "@/components/ContentComponent.vue";
+</script>
+
 <template>
   <div class="me">
-    <div class="head">
-      <img class="head_pic"
-           src="https://picsum.photos/80/80?random=1"
-           style="width: 80px;height: 80px" alt="">
-    </div>
-    <div class="userInfo">
-      <p class="nikeName" style="color: orange">
-        {{ userInfo.userName }} {{ userInfo.sign }}
-      </p>
-    </div>
-    <div class="panel">
-      <van-divider>我的荣誉</van-divider>
-      <div class="gloryPanel">
-        <p class="superGlory">APP内测先锋</p>
-        <p class="specGlory">渣男</p>
-        <p class="specGlory">LSP</p>
-        <p class="glory">助攻王</p>
-        <p class="glory">输出机器</p>
-        <p class="glory">国服第一九命猫</p>
+    <div class="banner">
+      <div class="userInfo">
+        <div class="myInfo">
+          <div class="avatar">
+            <img src="https://picsum.photos/50/50?random=1" alt="">
+          </div>
+          <div class="info">
+            <div class="username">糖小五</div>
+            <div class="ip">IP:河南</div>
+            <div class="level">LV7</div>
+          </div>
+        </div>
+
+        <div class="settings">
+          <van-icon name="setting-o" color="white" size="25px"/>
+          <van-icon name="share-o" color="white" size="25px"/>
+        </div>
+      </div>
+
+      <div class="glass-background">
+        <div class="card">
+          <div class="cardItem">
+            <div class="cardItemTitle">关注</div>
+            <div class="cardItemNum">100</div>
+          </div>
+          <div class="cardItem">
+            <div class="cardItemTitle">粉丝</div>
+            <div class="cardItemNum">100</div>
+          </div>
+          <div class="cardItem">
+            <div class="cardItemTitle">收藏</div>
+            <div class="cardItemNum">100</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="panel" id="main" :style="{width: '90%', height: '350px'}"></div>
-    <div class="accountController">
-      <van-icon name="setting-o" size="25px" @click="menu"/>
+
+    <div class="content">
+      <content-component></content-component>
     </div>
-    <div style="height: 4rem;"></div>
+
+
   </div>
 </template>
 
-<script lang="ts" setup>
-import {onMounted, ref} from "vue";
-import router from "@/router";
-import {showNotify} from "vant";
-import {useUserStore} from "@/stores/userStore";
-
-let userInfo = ref({})
-
-const menu = () => {
-  router.push("/menu");
-}
-const getUserInfo = () => {
-  userInfo = useUserStore().userInfo
-}
-const logOut = () => {
-  showNotify({type: 'success', message: '退出成功!'})
-  useUserStore().setUserInfo({})
-  router.push("/login");
-}
-
-onMounted(() => {
-  getUserInfo()
-})
-
-</script>
-
 <style scoped>
-
 .me {
   width: 100%;
   height: 100%;
-}
-
-.head {
-  width: 100%;
-  height: 200px;
-  background: url("https://picsum.photos/400/200?random=1") no-repeat;
-  background-size: cover;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  /*background-color: white;*/
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.head_pic {
-  border-radius: 40px;
-  margin-top: 200px;
-}
-
-.userInfo {
-  margin-top: 40px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  background: url("https://picsum.photos/1080/1920?random=1") no-repeat center center;
+  background-size: cover;
 }
 
-.accountController {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  /*bottom: 55px;*/
-  /*left: 0;*/
-  /*right: 0;*/
+.banner {
+  width: 100%;
+  height: 50%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-.panel {
-  width: 90%;
-  font-size: 16px;
-  background-color: white;
-  border-radius: 10px;
-  padding: 10px;
-  margin: 0 auto 10px;
-  /*border: 1px solid rgba(55, 125, 255, .3);*/
-  /*box-shadow: 0 0 35px rgba(55, 125, 255, .1);*/
-}
-
-.gloryPanel {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
   justify-content: space-around;
 }
 
-.glory {
-  padding-left: 2px;
-  padding-right: 2px;
-  font-size: 10px;
-  border: 1px solid green;
-  border-radius: 5px;
-  color: green;
+.userInfo{
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.specGlory {
-  padding-left: 2px;
-  padding-right: 2px;
-  font-size: 10px;
-  border: 1px solid gold;
-  border-radius: 5px;
-  color: gold;
+.myInfo {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.superGlory {
-  padding-left: 2px;
-  padding-right: 2px;
-  font-size: 10px;
-  border: 1px solid red;
-  border-radius: 5px;
-  color: red;
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
+.avatar img {
+  width: 100%;
+  height: 100%;
+}
+
+.info {
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  color: white;
+}
+
+.username {
+  font-size: 18px;
+}
+
+.ip {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+}
+
+.level {
+  color: black;
+  width: 50px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  font-size: 14px;
+  background: white;
+  border-radius: 8px;
+}
+
+
+.settings {
+  width: 50%;
+  height: 80px;
+  display: flex;
+  align-items: start;
+  justify-content: end;
+}
+
+.settings > .van-icon {
+  margin: 0 10px;
+}
+
+.glass-background {
+  width: 85%;
+  height: 200px;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  position: relative;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.card {
+  position: absolute;
+  width: 85%;
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.content{
+  height: 100%;
+  background-color: white;
+}
 </style>

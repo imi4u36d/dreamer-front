@@ -6,6 +6,7 @@ import SignupView from '../views/Signup.vue'
 import MeView from '../views/Me.vue'
 import ContentComponent from '../components/ContentComponent.vue'
 import MenuView from '../views/MenuView.vue'
+import ShotView from '../views/Shot.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +25,11 @@ const router = createRouter({
                     path: '/me',
                     name: 'me',
                     component: MeView
+                },
+                {
+                    path: '/shot',
+                    name: 'shot',
+                    component: ShotView
                 },
             ]
         },
@@ -50,6 +56,7 @@ const router = createRouter({
             // which is lazy-loaded when the route is visited.
             component: () => import('../views/AboutView.vue')
         },
+
         {
             path: '/detailView',
             name: 'detailView',
