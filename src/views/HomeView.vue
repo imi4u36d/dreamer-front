@@ -21,5 +21,6 @@ import CommonFooter from "@/components/CommonFooter.vue";
 .content{
   width: 100%;
   height: calc(100% - 50px);
+  margin-bottom: 50px;
 }
 </style>

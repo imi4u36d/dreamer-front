@@ -50,7 +50,6 @@ const toDetail = (id: any) => {
 
 <style scoped>
 #content {
-  margin-top: 50px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
