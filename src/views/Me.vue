@@ -33,7 +33,7 @@ onMounted(() => {
 
       console.log("scrollY.value" + scrollY.value)
       console.log("rect.top" + rect.top)
-      if (scrollY.value >= rect.top - 40) {
+      if (scrollY.value >= 310) {
         typeDiv.value.style.position = "fixed";
         typeDiv.value.style.top = "40px";
       } else {
@@ -89,17 +89,46 @@ onMounted(() => {
 
       <div class="glass-background">
         <div class="card">
-          <div class="cardItem">
-            <div class="cardItemTitle">关注</div>
-            <div class="cardItemNum">100</div>
+          <div class="sign">
+            这是我的个性签名怎么样还不错吧
+            这是我的个性签名怎么样还不错吧
+            这是我的个性签名怎么样还不错吧
+            这是我的个性签名怎么样还不错吧
+            这是我的个性签名怎么样还不错吧
           </div>
-          <div class="cardItem">
-            <div class="cardItemTitle">粉丝</div>
-            <div class="cardItemNum">100</div>
+          <div class="moreInfo">
+            <div class="cardItem">
+              <div class="cardItemNum">
+                <van-icon name="like"/>
+                100
+              </div>
+            </div>
+            <div class="cardItem">
+              <div class="cardItemNum">
+                <van-icon name="friends"/>
+                100
+              </div>
+            </div>
+            <div class="cardItem">
+              <div class="cardItemNum">
+                <van-icon name="star"/>
+                100
+              </div>
+            </div>
           </div>
-          <div class="cardItem">
-            <div class="cardItemTitle">收藏</div>
-            <div class="cardItemNum">100</div>
+          <div class="tools">
+            <div class="cardItem">
+              <div class="cardItemNum">
+                <van-icon name="shop-collect"/>
+                购物
+              </div>
+            </div>
+            <div class="cardItem">
+              <div class="cardItemNum">
+                <van-icon name="add-square"/>
+                创作中心
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -140,17 +169,17 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   background-size: cover;
-  background: url("../assets/img/1.jpeg") no-repeat center;
-  background-size: cover;
 }
 
 .banner {
   width: 100%;
-  height: 50%;
+  height: 350px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  background: url("../assets/img/1.jpeg") no-repeat center;
+  background-size: cover;
 }
 
 .fade-in-div {
@@ -244,23 +273,63 @@ onMounted(() => {
 .glass-background {
   width: 85%;
   height: 150px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
   position: relative;
   border-radius: 8px;
   margin-bottom: 10px;
+  display: flex;
 }
 
 .card {
+  font-size: 14px;
   position: absolute;
-  width: 85%;
+  width: 100%;
   height: 150px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: start;
   border-radius: 10px;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.sign {
+  width: 80%;
+  padding: 0 5%;
+  color: rgba(255, 255, 255, 0.8);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.moreInfo {
+  width: 80%;
+  padding: 0 5%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.moreInfo > .cardItem {
+  margin-right: 20px;
+}
+
+.tools {
+  width: 80%;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+}
+
+.tools > .cardItem {
+  margin-right: 20px;
+  color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  padding: 5px 10px;
 }
 
 .articles {
@@ -269,7 +338,7 @@ onMounted(() => {
   border-radius: 20px;
 }
 
-.contents{
+.contents {
   margin-top: 50px;
   margin-bottom: 50px;
 }
