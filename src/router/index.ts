@@ -7,6 +7,7 @@ import MeView from '../views/Me.vue'
 import ContentComponent from '../components/ContentComponent.vue'
 import MenuView from '../views/MenuView.vue'
 import ShotView from '../views/Shot.vue'
+import ActivityView from "@/views/ActivityView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,6 +26,11 @@ const router = createRouter({
                     path: '/me',
                     name: 'me',
                     component: MeView
+                },
+                {
+                    path: '/activity',
+                    name: 'activity',
+                    component: ActivityView
                 },
                 {
                     path: '/shot',

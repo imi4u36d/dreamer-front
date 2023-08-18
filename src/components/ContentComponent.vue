@@ -2,27 +2,30 @@
 
 //获取笔记列表
 import _service from "@/service";
-import {onMounted, ref} from "vue";
+import {onMounted, reactive} from "vue";
 import router from "@/router";
 
-onMounted(() => {
-  notePage();
-})
 
-
-let noteList = ref([])
+let noteList = reactive([])
 const notePage = () => {
   _service.notePage({}).then(res => {
     if (res.code === "200") {
-      noteList.value = res.data.records
+      // 清空数组
+      noteList.length = 0;
+      // 添加新数据
+      Array.prototype.push.apply(noteList, res.data.records);
     }
+    console.log(noteList)
   })
 }
 
 const toDetail = (id: any) => {
-  console.log(id)
   router.push({path: "/detailView", query: {id: id}})
 }
+
+onMounted(() => {
+  notePage();
+})
 </script>
 
 <template>

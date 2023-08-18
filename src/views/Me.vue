@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import ContentComponent from "@/components/ContentComponent.vue";
-import {onBeforeUnmount, onMounted, ref} from "vue";
+import {onBeforeUnmount, onMounted, reactive, ref} from "vue";
 
 const active = ref(0);
 const showLittleHeader = ref(false);
@@ -12,10 +12,16 @@ const scrollX = ref(0);
 const fadeDiv = ref()
 const typeDiv = ref()
 
+let curUserInfo = reactive({})
+const getUserInfo = () => {
+  const userInfo = localStorage.getItem('userInfo');
+  curUserInfo = userInfo ? JSON.parse(userInfo) : {}
+  console.log(curUserInfo)
+}
+getUserInfo()
 
 onMounted(() => {
-  const rect = typeDiv.value.getBoundingClientRect();
-
+  // >>>>>>>>>>>>>>>>>>滚动事件监听start<<<<<<<<<<<<<<<<<<<<<<
   const handleScroll = (event: any) => {
     event.preventDefault(); // 可选，阻止页面滚动
     // 获取垂直和水平滚动位置
@@ -30,21 +36,16 @@ onMounted(() => {
       // 将透明度应用到目标 div
       fadeDiv.value.style.opacity = opacity > 1 ? 1 : opacity.toFixed(2);
 
-
-      console.log("scrollY.value" + scrollY.value)
-      console.log("rect.top" + rect.top)
+      // 设置 typeDiv 的位置
       if (scrollY.value >= 310) {
         typeDiv.value.style.position = "fixed";
         typeDiv.value.style.top = "40px";
       } else {
         if (scrollY.value >= 80) {
-          console.log("出现")
           typeDiv.value.style.position = "absolute";
           typeDiv.value.style.top = 0;
         }
       }
-
-
     } else {
       showLittleHeader.value = false;
     }
@@ -54,12 +55,16 @@ onMounted(() => {
     scrollSpeed.value = Math.abs(event.deltaY);
   };
 
-  window.addEventListener('wheel', handleScroll);
+  window.addEventListener('wheel', handleScroll, );
+  // window.addEventListener('wheel', handleScroll, {passive: false});
 
   // 在组件销毁前移除滚动事件监听
   onBeforeUnmount(() => {
     window.removeEventListener('wheel', handleScroll);
   });
+  // >>>>>>>>>>>>>>>>>>滚动事件监听end<<<<<<<<<<<<<<<<<<<<<<
+
+
 });
 </script>
 
@@ -75,7 +80,7 @@ onMounted(() => {
             <img src="https://picsum.photos/50/50?random=1" alt="">
           </div>
           <div class="info">
-            <div class="username">糖小五</div>
+            <div class="username">{{ curUserInfo.username }}</div>
             <div class="ip">IP:河南</div>
             <div class="level">LV7</div>
           </div>
@@ -161,6 +166,7 @@ onMounted(() => {
   width: 100%;
   position: absolute;
   top: 0;
+  z-index: 999;
 }
 
 .me {
@@ -188,14 +194,20 @@ onMounted(() => {
 
 .littleHeader {
   width: 100%;
-  height: 40px;
-  background-color: #393e46;
+  height: 41px;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
   top: 0;
   z-index: 999;
+}
+
+.littleHeader img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
 .userInfo {
@@ -247,8 +259,9 @@ onMounted(() => {
 }
 
 .level {
+  padding-left: 5px;
+  padding-right: 5px;
   color: black;
-  width: 50px;
   height: 20px;
   line-height: 20px;
   text-align: center;

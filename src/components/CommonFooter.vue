@@ -9,7 +9,7 @@ const activeTab = ref(2);
   <div class="footer">
     <van-tabbar class="footer" v-model="activeTab" active-color="green">
       <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
-      <van-tabbar-item icon="search" to="/shot">活动</van-tabbar-item>
+      <van-tabbar-item icon="search" to="/activity">活动</van-tabbar-item>
       <van-tabbar-item icon="friends-o">消息</van-tabbar-item>
       <van-tabbar-item icon="setting-o" to="/me">我</van-tabbar-item>
     </van-tabbar>

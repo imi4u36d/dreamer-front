@@ -1,11 +1,9 @@
 <script lang="ts" setup>
 import _service from "@/service";
-import {useUserStore} from "@/stores/userStore";
 import {ref} from "vue";
 import router from "@/router";
 import {showNotify} from 'vant';
 import {sha256} from 'js-sha256'
-import * as path from "path";
 
 const email = ref('');
 const password = ref('');

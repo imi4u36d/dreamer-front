@@ -5,6 +5,8 @@ import App from './App.vue'
 import router from './router'
 import { Notify } from 'vant';
 import 'vant/lib/index.css';
+// 引入动画库
+// import "animate.css"
 
 const app = createApp(App)
 
